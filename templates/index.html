@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block body %}
+  
+
+<br><br>
+<div class="container">
+  <h2>Add a Todo</h2>
+        <form action="/" method="POST">
+          <div class="form-group">
+            <label for="title">Todo title</label>
+            <input type="text" name="title" class="form-control" id="title" aria-describedby="emailHelp" placeholder="title">
+            <small id="title" class="form-text text-muted">write your todo title</small>
+          </div>
+          <div class="form-group">
+            <label for="desc">Description</label>
+            <input type="text" name="desc" class="form-control" id="desc" placeholder="Description">
+          </div>
+          <button type="submit" class="btn btn-dark">Submit</button>
+        </form>
+      </div>
+      
+      {% if alltodo|length == 0 %}
+     <div class="container-fluid text-center" aria-hidden="true"></i>
+      <img style="mix-blend-mode:multiply; width: 200px;" src="https://img.freepik.com/free-vector/oops-404-error-with-broken-robot-concept-illustration_114360-5529.jpg?w=740&t=st=1711621318~exp=1711621918~hmac=fb3d28accd1accf3faab299d5e4633dabc47ad2a31092a27a176bf06129f0c3b" alt="">
+      <div class="container w-25"><div class="alert alert-light" role="alert">
+        Please Add Some ToDos
+      </div></div>
+    </div> 
+    {% else %}
+    <div class="container my-4">
+      <h2>Your ToDos</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">SNo</th>
+            <th scope="col">title</th>
+            <th scope="col">description</th>
+            <th scope="col">time</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+          {% for entry in alltodo %}
+          <tr>
+            <th scope="row">{{loop.index}}</th>
+            <td>{{entry.title}}</td>
+            <td>{{entry.desc}}</td>
+            <td>{{entry.date_created}}</td>
+            <td><a  href="/update/{{entry.sno}}" class="btn btn-dark">update</a> <a href="/delete/{{entry.sno}}" class="btn btn-danger">delete</a></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% endif %}
+      {% endblock body %}
+      
